@@ -7,7 +7,7 @@ import { FOOTER_DATA } from '../../../../constant';
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gray-900 text-white py-10">
+    <footer className="w-full bg-gray-900 text-white py-10 mt-16">
       <div className="w-4/5 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* About Us */}
         <div>

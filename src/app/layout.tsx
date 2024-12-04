@@ -3,6 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Nav from "@/components/components/Home/Nav";
 import { ClerkProvider } from "@clerk/nextjs";
+import Footer from "@/components/components/Home/Footer";
+import StoreProvider from "../../StoreProvider/StoreProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,6 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <StoreProvider>
     <ClerkProvider>
     <html lang="en">
       <body
@@ -33,8 +37,12 @@ export default function RootLayout({
       >
         <Nav/>
         {children}
+        <Toaster />
+        <Footer/> 
+        
       </body>
     </html>
     </ClerkProvider>
+    </StoreProvider>
   );
 }

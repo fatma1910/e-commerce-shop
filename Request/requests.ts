@@ -9,3 +9,13 @@ export async function getAllProduct() {
     return productRes.json();
 
 }
+export async function getSingleProduct(id:string) {
+    const productRes = await fetch(`https://fakestoreapi.com/products/${id}`);
+    return productRes.json();
+
+}
+export async function getSimilarProducts(cat:string) {
+    const similar = await fetch(`https://fakestoreapi.com/products/category/${cat}`);
+    return similar.json();
+
+}
