@@ -7,9 +7,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@clerk/nextjs';
-import { addItem, CartItem, removeItem } from '../../../../store/cartSlice';
+import { addItem, CartItem, clearCart, removeItem } from '../../../../store/cartSlice';
+import PayPalBtn from '@/components/components/Helper/PayPalBtn';
+import { useRouter } from 'next/navigation';
 
 const Cart = () => {
+    const router = useRouter();
     
     const items = useSelector(( state:RootState )=> state.cart.items)
 
@@ -35,6 +38,11 @@ const Cart = () => {
         dispatch(addItem(item));
     }
 
+
+    const handleSuccess =(details:any) => {
+        router.push('/success');
+        dispatch(clearCart())
+    }   
 
   return (
     <div className='mt-8 min-h-[60vh]'>
@@ -72,7 +80,9 @@ const Cart = () => {
 
                         </div>
                     })}
-                    <div className='xl:col-span-2 mt-12 xl:mt-auto '>
+                    
+                </div>
+                <div className='xl:col-span-2'>
                         <div className='bg-indigo-950 sticky top-[25vh] p-6 rounded-lg'>
                             <h1 className='text-3xl font-semibold text-white my-8 text-center '>Order Summary</h1>
                             <div className='w-full h-[1.2px] bg-white bg-opacity-20'></div>
@@ -99,12 +109,12 @@ const Cart = () => {
                                     <Button className='bg-orange-500 w-full hover:bg-orange-400'>Sign In to Checkout</Button>
                                 </Link>
                             ): (
-                                <Button className='w-full bg-orange-500 hover:bg-orange-400'>Paypal</Button>
+                                // <Button className='w-full bg-orange-500 hover:bg-orange-400'>Paypal</Button>
+                                <PayPalBtn amount={totalPriceVat} onSuccess={handleSuccess}/>
                             )}
                         </div>
 
                     </div>
-                </div>
             </div>
         )}
     </div>
