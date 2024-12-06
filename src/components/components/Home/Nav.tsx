@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import SearchBox from '../Helper/SearchBox'
-import { HeartIcon, UserIcon } from 'lucide-react'
+import { HeartIcon, Search, UserIcon } from 'lucide-react'
 import ShoppingCartButton from '../Helper/ShoppingCartButton'
 import { UserButton, useUser } from '@clerk/nextjs'
 
@@ -22,7 +22,10 @@ const Nav = () => {
         />
         </Link>
         <div className='flex items-center space-x-6'>
-            <SearchBox/>
+          <Link href={'/search'}>
+            <Search/>
+          </Link>
+            
             <Link href='/favorite'>
             <HeartIcon size={26} cursor={"pointer"} />
             </Link>

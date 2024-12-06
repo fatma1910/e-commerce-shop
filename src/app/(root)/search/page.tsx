@@ -2,37 +2,34 @@
 
 import React, { useState, useEffect } from "react";
 import ProductCard from "@/components/components/Helper/ProductCard";
+import { getAllProduct } from "../../../../Request/requests";
 
-// Function to fetch products from the API
-const fetchProducts = async () => {
-  const response = await fetch('https://fakestoreapi.com/products');
-  const products = await response.json();
-  return products;
-};
 
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState<any[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
-  // Fetch products on component mount
+  
   useEffect(() => {
     const getProducts = async () => {
-      const products = await fetchProducts();
+      const products = await getAllProduct();
       setProducts(products);
-      setFilteredProducts(products); // Initially, show all products
     };
 
     getProducts();
-  }, []);
-
-  // Update filtered products when search query changes
+  }, []); 
+  
   useEffect(() => {
-    const filtered = products.filter((product) =>
-      product.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-  }, [searchQuery, products]); // Trigger re-filtering when searchQuery or products change
+    if (searchQuery.trim() === "") {
+      setFilteredProducts([]); 
+    } else {
+      const filtered = products.filter((product) =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }
+  }, [searchQuery, products]); 
 
   return (
     <div className="my-12">
@@ -42,7 +39,7 @@ const SearchPage = () => {
           type="text"
           placeholder="Search for products..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // Update search query
+          onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full p-4 text-lg border border-gray-300 rounded-lg mb-8 outline-none"
         />
         {filteredProducts.length > 0 ? (
