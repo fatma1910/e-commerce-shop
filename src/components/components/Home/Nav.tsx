@@ -23,7 +23,10 @@ const Nav = () => {
         </Link>
         <div className='flex items-center space-x-6'>
             <SearchBox/>
-            <HeartIcon size={26} cursor={"pointer"}/>
+            <Link href='/favorite'>
+            <HeartIcon size={26} cursor={"pointer"} />
+            </Link>
+            
             <ShoppingCartButton/>
             {isSignedIn ?   (
                 <UserButton/>
